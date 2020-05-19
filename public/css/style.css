@@ -1,0 +1,12 @@
+body {
+    background-color: #333;
+    color: #fff;
+}
+
+ul {
+    color: #333;
+}
+
+.list-group-item {
+    border: silver 1px solid;
+}

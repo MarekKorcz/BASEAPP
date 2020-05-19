@@ -29,8 +29,8 @@ function getServerResponse (serverName) {
         })
         .then((res) => res.json())
         .then((data) => {            
-            if (data.type === "success")
-            {
+            if (data.type === "success") {
+                
                 console.log(data)
             }
         });

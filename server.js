@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const params = require('./project-params.js')
+require('dotenv').config()
 
 const app = express()
 
@@ -22,10 +23,10 @@ app.post('/send-request-to-server', (req, res) => {
     var SSH = require('simple-ssh')
  
     var ssh = new SSH({
-        host: '195.78.66.4',
-        user: 'korcz',
-        pass: 'meMentomori00',
-        port: 222
+        host: process.env.HOST,
+        user: process.env.HOST_USER,
+        pass: process.env.HOST_PASS,
+        port: process.env.HOST_PORT
     })
 
     ssh

@@ -1,8 +1,16 @@
-const express = require('express')
-const path = require('path')
-const params = require('./project-params.js')
-require('dotenv').config()
+// pushes variable from .env file to process.env
+const dotenv = require('dotenv')
+dotenv.config()
 
+// init environment variable
+const {
+    APP_PORT, HOST, HOST_USER, HOST_PASS, HOST_PORT
+} = process.env
+
+const path = require('path')
+
+// init express
+const express = require('express')
 const app = express()
 
 // get static routings with views files
@@ -23,10 +31,10 @@ app.post('/send-request-to-server', (req, res) => {
     var SSH = require('simple-ssh')
  
     var ssh = new SSH({
-        host: process.env.HOST,
-        user: process.env.HOST_USER,
-        pass: process.env.HOST_PASS,
-        port: process.env.HOST_PORT
+        host: HOST,
+        user: HOST_USER,
+        pass: HOST_PASS,
+        port: HOST_PORT
     })
 
     ssh
@@ -43,4 +51,4 @@ app.post('/send-request-to-server', (req, res) => {
         .start()
 })
 
-app.listen(params.PORT, () => console.log(`Server running on port ${params.PORT}`))
+app.listen(APP_PORT, () => console.log(`Server running on port ${APP_PORT}`))

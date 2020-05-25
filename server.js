@@ -16,6 +16,10 @@ const app = express()
 // get static routings with views files
 app.use(express.static(path.join(__dirname, 'public')))
 
+// auth routings
+const auth = require('./routes/auth')
+app.use('/', auth)
+
 // get dynamic routings (like fetched ones)
 app.use(express.json({ limit: '1mb' }))
 app.post('/send-request-to-server', (req, res) => {

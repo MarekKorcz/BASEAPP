@@ -1,0 +1,19 @@
+#login-header {
+    padding-top: 2rem;
+}
+
+.login-section {
+    margin-top: 3rem;
+    padding-bottom: .9rem;
+    height: auto;
+    text-align: center;
+}
+
+#login input[name='email'], #login input[name='password'] {
+    width: 42%;
+}
+
+.input-error {
+    border: 1px solid red;
+    background-color: lightpink;
+}

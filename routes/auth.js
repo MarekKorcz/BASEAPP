@@ -1,5 +1,5 @@
 const router = require('express').Router()
-var path = require('path');
+const path = require('path');
 // const User = require('../model/User')
 
 router.get('/login', async (req, res) => {
@@ -17,7 +17,7 @@ router.get('/login', async (req, res) => {
     //     if (!validPassword) return res.status(400).send('Invalid password')
 
     // res.send(__dirname)
-        res.sendFile(path.resolve('public/login.html'))
+        res.render('auth/login')
 })
 
 router.post('/login', async (req, res) => {
@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
 
     console.log('yolo from server')
 
-
+    return res
 
 })
 

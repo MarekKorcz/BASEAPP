@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.querySelector("form#login a[value=submit]").addEventListener('click', (event) => {
+    document.querySelector("form#login a[name=submit]").addEventListener('click', (event) => {
 
         event.preventDefault
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             logIn(email.value, password.value)
         }
     })
-});
+})
 
 function logIn (data) {
 

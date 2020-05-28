@@ -1,0 +1,11 @@
+// mongodb install commands (https://www.youtube.com/watch?v=WH5GgHaEy7E)
+sudo apt-get install mongodb
+sudo apt-get update 
+sudo service mongodb start
+
+// mongodb config path commands (https://stackoverflow.com/questions/34249433/unable-to-find-mongod-conf-file-in-ubuntu) 
+
+sudo chown -R mongodb:mongodb /var/lib/mongodb
+sudo chmod o+w var/lib/mongodb/mongod.lock
+
+// this fires mongod !!   >>> mongod --dbpath /var/lib/mongodb -f /etc/mongodb.conf

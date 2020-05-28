@@ -4,10 +4,31 @@ dotenv.config()
 
 // init environment variable
 const {
-    APP_PORT, HOST, HOST_USER, HOST_PASS, HOST_PORT
+    DB_NAME, DOMAIN_NAME, DB_DOMAIN_PORT, DB_APP_NAME, APP_PORT, HOST, HOST_USER, HOST_PASS, HOST_PORT
 } = process.env
 
 const path = require('path')
+
+// connect to db
+const mongoose = require('mongoose')
+mongoose
+    .connect(`${DB_NAME}://${DOMAIN_NAME}:${DB_DOMAIN_PORT}/${DB_APP_NAME}`, { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true 
+    })
+    .then(() => console.log('Connected to DB'))
+    .catch(error => console.log(error))
+// let db = mongoose.connection
+
+// // check connection
+// db.once('open', () => {
+//     console.log('Connected to MongoDB')
+// })
+
+// // check if db error occurs
+// db.once('error', (error) => {
+//     console.log(error)
+// })
 
 // init express
 const express = require('express')

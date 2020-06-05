@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "eval $(cat .env) node app.js",
+    "dev": "eval $(cat .env) nodemon app.js"
   },
   "author": "",
   "license": "ISC",

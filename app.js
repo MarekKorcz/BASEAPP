@@ -1,11 +1,13 @@
 // pushes variable from .env file to process.env
-const dotenv = require('dotenv')
-dotenv.config()
+// const dotenv = require('dotenv')
+// dotenv.config()
 
 // init environment variable
 const {
     DB_NAME, DOMAIN_NAME, DB_DOMAIN_PORT, DB_APP_NAME, APP_PORT, HOST, HOST_USER, HOST_PASS, HOST_PORT
 } = process.env
+
+console.log({DB_NAME, DOMAIN_NAME, DB_DOMAIN_PORT, DB_APP_NAME, APP_PORT, HOST, HOST_USER, HOST_PASS, HOST_PORT})
 
 const path = require('path')
 

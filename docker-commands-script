@@ -1,0 +1,185 @@
+// DOCKERFILE file commands
+
+FROM - download image
+#FROM ubuntu:16.04
+
+LABEL maintainers - dockerfile build label name
+#LABEL maintainers = "Leszek Czarnecki"
+
+RUN - enables command execution Dockerfile while it's being build
+#RUN apt-get update
+// commands in Dockerfile must be non reactive (-y flag)
+#RUN apt-get install -y python
+
+
+
+
+// COMMAND LINE commands
+
+
+                                            DOCKER MANAGEMENT
+
+// place where you can add a new host to your machine
+sudo vim /etc/hosts
+
+// show images
+docker image ls
+docker images
+
+// show full IMAGE ID value
+docker images --no-trunc
+
+// pull image
+docker pull <name>
+#docker pull ubuntu:16.04
+
+// build own image descripted in Dockerfile
+docker build <file path> 
+#docker build .
+
+// creates and run container made from image
+docker container run -it --name FirstContainer <imageID/name>
+docker run -it --name FirstContainer <imageID/name>
+
+// detached mode
+docker container run -d <imageName>
+
+// run container on localhost
+docker container run -P <imageName>
+
+// run container on specified port
+docker container run -p <portToShareOnHost>:<containerPort> <imageName>
+
+// run a container
+docker container start <imageID/name>
+
+// attaches to a container main process (if you exit from this process - entire container will stop)
+docker attach <imageID/name>
+
+// creates a new connection with new container process (if you exit from this process - container will still run)
+docker container exec -it <imageID/name> bash
+
+// show processes
+ps 
+#ps -aux
+#ps -aux | grep <searchPhrase>
+
+// restart container
+docker container restart <imageID/name>
+
+// stop container ('smooth' stop)
+docker container stop <imageID/name>
+
+// stop container ('rough' stop)
+docker container kill <imageID/name>
+
+// remove container
+docker container rm <imageID/name>
+#docker container rm 893fhec87f4 -f
+
+// remove image
+docker image rm <imageID/name>
+docker rmi <imageID/name>
+
+// login to Docker Hub
+docker login
+
+// logut from Docker Hub
+docker logut
+
+// tag local image with Docker Hub account (removes <none> and shows image names)
+docker tag <imageID> <name>
+#docker tag ofcjef934f3 leszekczarnecki/klaszcze-uszami:1.0
+
+// push image to Docker Hub repo
+docker push <imageID/name>
+
+
+
+
+                                                DEBUG
+
+// show json with container data
+docker container inspect <containerID/name>
+docker inspect <containerID/name>
+docker container inspect <containerID/name> | grep <searchPhrase>
+
+// tops processes in container
+docker top <dockerName/ID>
+
+// general overview off docker
+docker info
+
+// docker logs
+docker logs <dockerName/ID>
+
+// shows differences between newly run container and current state of the same container
+docker diff <dockerName/ID>
+
+// shows list of ports that some process listen to
+netstat -tplun
+netstat -lptu | gerp <searchPhrase>
+
+// library to display text page content in CL giving url address
+sudo apt instal elinks
+#elinks http://<conteinerIP>
+
+
+
+                                            CONFIG
+
+// add user to docker group?
+sudo usermod -a -G docker <name>
+
+
+
+                                        DOCKER SWARM
+// on master to init swarm
+docker swarm init --advertise-addr <addressIP>
+
+// next, on master machine fire this command to gain registration links to plug other nodes to claster 
+// (manager or worker)
+docker swarm join-token <manager or worker>
+
+// (on master) show list of nodes in swarm
+docker node ls
+
+
+                                        VOLUMES
+// docker volumes list
+docker volume ls
+
+// create volume
+docker volume create <name>
+
+// more info about volume
+docker volume inspect <name>
+
+// creates and run container made from image with volume
+docker container run -d --name <containerName> --mount source=<volumeName>,target=<path> <imangeId/Name>
+docker container run -d --name <containerName> -v <volumeName>:<path> <imangeId/Name>
+# docker container run -dt --name ExampleVol --mount source=examplevol,target=/home ubuntu /bin/bash
+# docker container run -d --name ExampleVol --mount source=examplevol,target=/home <imageWithSomeContinuousState>
+
+                                        STACK DEPLOY
+// run application stack defined in docker-comopose.yml
+docker stack deploy --compose-file <pathToDockerComposeFile> <deployStackName>
+
+// docker stack help info
+docker stack --help
+
+// list of docker stacks
+docker stack ls
+
+// shows tasks in a given stack
+docker stack ps <stackName>
+
+// shows list of services in a given stack
+docker stack services <stackName>
+
+                                        NETWORK
+// shows networks (understand what that really means)
+docker network ls
+
+// command to show ip address on a given node
+ip a

@@ -9,6 +9,12 @@ services:
             - '80:5000'
         links: 
             - mongo
+        environment:
+            - DB_NAME=mongodb
+            - DOMAIN_NAME=mongo
+            - DB_DOMAIN_PORT=27017
+            - DB_APP_NAME=test
+            - APP_PORT=5000
     mongo:
         container_name: mongo
         image: mongo

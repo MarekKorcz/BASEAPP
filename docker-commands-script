@@ -11,7 +11,9 @@ RUN - enables command execution Dockerfile while it's being build
 // commands in Dockerfile must be non reactive (-y flag)
 #RUN apt-get install -y python
 
-
+// init command
+CMD ["npm", "start"]
+CDM npm start
 
 
 // COMMAND LINE commands
@@ -59,22 +61,24 @@ docker attach <imageID/name>
 // creates a new connection with new container process (if you exit from this process - container will still run)
 docker container exec -it <imageID/name> bash
 
-// show processes
+// show processes    https://www.geeksforgeeks.org/ps-command-in-linux-with-examples/
 ps 
 #ps -aux
 #ps -aux | grep <searchPhrase>
+## ps | grep bash - this returns all processes with phrase (even this one who called it)
+## ps -C bash - this one returns every process with given phrase accept this one
 
 // restart container
 docker container restart <imageID/name>
 
 // stop container ('smooth' stop)
-docker container stop <imageID/name>
+docker container stop <containerID/name>
 
 // stop container ('rough' stop)
-docker container kill <imageID/name>
+docker container kill <containerID/name>
 
 // remove container
-docker container rm <imageID/name>
+docker container rm <containerID/name>
 #docker container rm 893fhec87f4 -f
 
 // remove image
@@ -88,7 +92,7 @@ docker login
 docker logut
 
 // tag local image with Docker Hub account (removes <none> and shows image names)
-docker tag <imageID> <name>
+docker tag <imageID> <name:tag>
 #docker tag ofcjef934f3 leszekczarnecki/klaszcze-uszami:1.0
 
 // push image to Docker Hub repo
@@ -160,6 +164,9 @@ docker container run -d --name <containerName> --mount source=<volumeName>,targe
 docker container run -d --name <containerName> -v <volumeName>:<path> <imangeId/Name>
 # docker container run -dt --name ExampleVol --mount source=examplevol,target=/home ubuntu /bin/bash
 # docker container run -d --name ExampleVol --mount source=examplevol,target=/home <imageWithSomeContinuousState>
+
+// Mounting a Directory in a Docker Container (2min 15sek)
+https://www.youtube.com/watch?v=MdRWkqcbLJI
 
                                         STACK DEPLOY
 // run application stack defined in docker-comopose.yml

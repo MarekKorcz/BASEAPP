@@ -42,6 +42,8 @@ docker build <file path>
 // creates and run container made from image
 docker container run -it --name FirstContainer <imageID/name>
 docker run -it --name FirstContainer <imageID/name>
+// automatically clean up the container and remove the file system when the container exits
+docker run --rm -it --name FirstContainer <imageID/name>
 
 // detached mode
 docker container run -d <imageName>
@@ -59,7 +61,7 @@ docker container start <imageID/name>
 docker attach <imageID/name>
 
 // creates a new connection with new container process (if you exit from this process - container will still run)
-docker container exec -it <imageID/name> bash
+docker container exec -it <containerID/name> bash
 
 // show processes    https://www.geeksforgeeks.org/ps-command-in-linux-with-examples/
 ps 

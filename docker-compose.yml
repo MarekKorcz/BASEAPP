@@ -11,9 +11,9 @@ services:
             - mongo
         environment:
             - DB_NAME=mongodb
-            - DOMAIN_NAME=mongo
+            - DB_DOMAIN_NAME=mongo
             - DB_DOMAIN_PORT=27017
-            - DB_APP_NAME=test
+            - DB_APP_NAME=base
             - APP_PORT=5000
         volumes:
             - "~/Public/BaseApp:/app:rw"

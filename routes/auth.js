@@ -1,6 +1,34 @@
 const router = require('express').Router()
 const path = require('path');
-// const User = require('../model/User')
+const User = require('../model/User')
+const { registerValidation } = require("./validation/validate")
+
+router.post('/register', async (req, res) => {
+
+    // Validate user before submit to DB
+    const { error } = registerValidation(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
+
+    // checking if the user is already in DB
+    const emailExists = await User.findOne({email: req.body.email})
+    if (emailExists) return res.status(400).send("Email already exists")
+
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    })
+
+    try {
+
+        const savedUser = await user.save()
+        res.send(savedUser)
+
+    } catch(err) {
+
+        res.status(400).send(err)
+    }
+})
 
 router.get('/login', async (req, res) => {
     

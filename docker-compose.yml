@@ -15,6 +15,7 @@ services:
             - "DB_APP_NAME=${DB_APP_NAME}"
             - "DB_PORT=${DB_PORT}"
             - "APP_PORT=${APP_PORT}"
+            - "TOKEN_SECRET=${TOKEN_SECRET}"
         volumes:
             - "~/Public/BaseApp:/app:rw"
     mongo:

@@ -17,11 +17,12 @@ services:
             - "APP_PORT=${APP_PORT}"
             - "TOKEN_SECRET=${TOKEN_SECRET}"
         volumes:
-            - "~/Public/BaseApp:/app:rw"
+            - ~/Public/BaseApp:/app:rw
+            - /app/node_modules
     mongo:
         container_name: mongo
         image: mongo
         ports: 
             - '27017:27017'
         volumes:
-            - "~/Public/BaseApp/data:/data/db:rw"
+            - ~/Public/BaseApp/data:/data/db:rw

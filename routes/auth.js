@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const path = require('path');
 const User = require('../model/User')
-const { registerValidation, loginValidation } = require("./validation/validate")
+const { registerAndLoginValidation } = require("./validation/validate")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { TOKEN_SECRET } = process.env
@@ -9,12 +9,12 @@ const { TOKEN_SECRET } = process.env
 router.post('/register', async (req, res) => {
 
     // Validate user before submit to DB
-    const { error } = registerValidation(req.body)
+    const { error } = registerAndLoginValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
     // checking if the user is already in DB
-    const emailExists = await User.findOne({email: req.body.email})
-    if (emailExists) return res.status(400).send("Email already exists")
+    const userExists = await User.findOne({name: req.body.name})
+    if (userExists) return res.status(400).send("User already exists")
 
 
 
@@ -26,7 +26,6 @@ router.post('/register', async (req, res) => {
 
     const user = new User({
         name: req.body.name,
-        email: req.body.email,
         password: hashedPassword
     })
 
@@ -49,11 +48,11 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
     
     // validate user data
-    const { error } = loginValidation(req.body)
+    const { error } = registerAndLoginValidation(req.body)
     if (error) res.status(400).send(error.details[0].message)
 
     // check if user exists
-    const user = await User.findOne({ email: req.body.email })
+    const user = await User.findOne({ name: req.body.name })
     if (!user) return res.status(400).send('User is not found')
 
     // check if password is correct
@@ -63,10 +62,11 @@ router.post('/login', async (req, res) => {
 
 
     // create and assign a token
-    const token = jwt.sign({_id: user._id}, TOKEN_SECRET)
+    const token = jwt.sign({_id: user._id}, TOKEN_SECRET, {expiresIn: '1d'})
     res.header('auth-token', token)
 
-    res.send('Logged in!')
+    res.send(token)
+    // res.send('Logged in!')
 })
 
 module.exports = router

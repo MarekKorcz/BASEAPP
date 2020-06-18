@@ -46,26 +46,28 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
+
+    console.log(`Knock knock ${req.body}`)
     
-    // validate user data
-    const { error } = registerAndLoginValidation(req.body)
-    if (error) res.status(400).send(error.details[0].message)
+    // // validate user data
+    // const { error } = registerAndLoginValidation(req.body)
+    // if (error) res.status(400).send(error.details[0].message)
 
-    // check if user exists
-    const user = await User.findOne({ name: req.body.name })
-    if (!user) return res.status(400).send('User is not found')
+    // // check if user exists
+    // const user = await User.findOne({ name: req.body.name })
+    // if (!user) return res.status(400).send('User is not found')
 
-    // check if password is correct
-    const validPassword = await bcrypt.compare(req.body.password, user.password)
-    if (!validPassword) return res.status(400).send('Invalid password')
+    // // check if password is correct
+    // const validPassword = await bcrypt.compare(req.body.password, user.password)
+    // if (!validPassword) return res.status(400).send('Invalid password')
 
 
 
-    // create and assign a token
-    const token = jwt.sign({_id: user._id}, TOKEN_SECRET, {expiresIn: '1d'})
-    res.header('auth-token', token)
+    // // create and assign a token
+    // const token = jwt.sign({_id: user._id}, TOKEN_SECRET, {expiresIn: '1d'})
+    // res.header('auth-token', token)
 
-    res.send(token)
+    // res.send(token)
     // res.send('Logged in!')
 })
 

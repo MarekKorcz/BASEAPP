@@ -17,22 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
             
         } else if (email.value !== '') {
             
-            if (validateEmail(email.value)) {
-
-                isEmailValid = true
-                
-                if(email.classList.contains("input-error")) {
-                
-                    email.classList.remove("input-error")
-                }
-                
-            } else {
-                
-                if(!email.classList.contains("input-error")) {
-                
-                    email.classList.add("input-error")
-                    isEmailValid = false
-                }
+            isEmailValid = true
+            
+            if(email.classList.contains("input-error")) {
+            
+                email.classList.remove("input-error")
             }
         }
 
@@ -64,7 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-function logIn (data) {
+function logIn (email, pass) {
+
+
+console.log('tu')
+
 
     return fetch('http://localhost:5000/login', {
             method: 'POST',
@@ -76,7 +69,8 @@ function logIn (data) {
                 // https://stackoverflow.com/questions/34782493/difference-between-csrf-and-x-csrf-token
             },
             body: JSON.stringify({
-                data: data
+                email,
+                pass
             })
         })
         .then((res) => res.json())
@@ -87,11 +81,4 @@ function logIn (data) {
                 window.location.replace("http://localhost:5000/servers.html")
             }
         });
-}
-
-function validateEmail(email) 
-{
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    
-    return re.test(String(email).toLowerCase());
 }

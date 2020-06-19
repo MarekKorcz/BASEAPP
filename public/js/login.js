@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // console.log(localStorage)
+
     document.querySelector("form#login a[name=submit]").addEventListener('click', (event) => {
 
         event.preventDefault
@@ -53,13 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-function logIn (email, pass) {
+function logIn (email, password) {
 
-
-console.log('tu')
-
-
-    return fetch('http://localhost:5000/login', {
+    return fetch('http://localhost/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -70,15 +68,22 @@ console.log('tu')
             },
             body: JSON.stringify({
                 email,
-                pass
+                password
             })
         })
         .then((res) => res.json())
-        .then((data) => {            
-            if (data.type === "success") {
+        .then((data) => {      
+            
+
+            if (data.status == "success") {
+
+                console.log('it works')
                 
-                // console.log(data)
-                window.location.replace("http://localhost:5000/servers.html")
+                // window.location.replace("http://localhost:5000/servers.html")
+
+            } else if (data.status == "error") {
+
+                console.log(data.message)
             }
         });
 }

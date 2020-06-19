@@ -4,7 +4,7 @@ const registerAndLoginValidation = data => {
 
     const schema = Joi.object({
         name: Joi.string().
-            min(6).
+            min(5).
             max(51).
             required(),
         password: Joi.string().

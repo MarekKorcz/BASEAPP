@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const verify = require('./validation/verifyToken')
+const verifyToken = require('./validation/verifyToken')
 
-router.get('/list', verify, (req, res) => {
+router.get('/list', verifyToken, (req, res) => {
 
     res.render('server/list')
 })

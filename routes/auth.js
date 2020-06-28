@@ -84,6 +84,10 @@ router.post('/login', async (req, res) => {
     res.send(data)
 })
 
+module.exports = router
+
+
+
 function twistKeyNames(data) {
     
     data.name = data.email
@@ -91,5 +95,3 @@ function twistKeyNames(data) {
 
     return data
 }
-
-module.exports = router

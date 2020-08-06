@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // console.log(localStorage)
+    console.log(document.cookie)
+
 
     document.querySelector("form#login a[name=submit]").addEventListener('click', (event) => {
 
@@ -53,37 +54,44 @@ document.addEventListener("DOMContentLoaded", () => {
             logIn(email.value, password.value)
         }
     })
-})
 
-function logIn (email, password) {
+    function logIn (email, password) {
 
-    return fetch('http://localhost/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-
-                // figure out a way to protect request in express!!!!
-                // https://stackoverflow.com/questions/34782493/difference-between-csrf-and-x-csrf-token
-            },
-            body: JSON.stringify({
-                email,
-                password
+        return fetch('http://localhost/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+    
+                    // figure out a way to protect request in express!!!!
+                    // https://stackoverflow.com/questions/34782493/difference-between-csrf-and-x-csrf-token
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
             })
-        })
-        .then((res) => res.json())
-        .then((data) => {      
-            
+            .then((res) => res.json())
+            .then((data) => {
 
-            if (data.status == "success") {
+                if (data.status == "success") {
 
-                console.log('it works')
-                
-                // window.location.replace("http://localhost:5000/servers.html")
+                    // console.log(data.token)
+                    setToken(data.token)
+                    
+                    
+                    // window.location.replace("http://localhost:5000/servers.html")
+                }
+            });
+    }
 
-            } else if (data.status == "error") {
+    function setToken(token) { 
 
-                console.log(data.message)
-            }
-        });
-}
+        var now = new Date()
+        var time = now.getTime()
+        var expireTime = time + 36000
+        now.setTime(expireTime)
+
+        document.cookie = `token=${token};expires='${now.toGMTString()}';`
+    }
+})

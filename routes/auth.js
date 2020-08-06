@@ -16,8 +16,6 @@ router.post('/register', async (req, res) => {
     const userExists = await User.findOne({name: req.body.name})
     if (userExists) return res.status(400).send("User already exists")
 
-
-
     // generate salt
     const salt = await bcrypt.genSalt(10)
 
@@ -77,15 +75,13 @@ router.post('/login', async (req, res) => {
     }
 
     // create and assign a token
-    const token = jwt.sign({_id: user._id}, TOKEN_SECRET, {expiresIn: '1d'})
-    res.header('auth-token', token)
+    data.token = jwt.sign({_id: user._id}, TOKEN_SECRET, {expiresIn: '1d'})
     data.status = 'success'
-
+    
     res.send(data)
 })
 
 module.exports = router
-
 
 
 function twistKeyNames(data) {

@@ -4,11 +4,10 @@ const { TOKEN_SECRET } = process.env
 module.exports = (req, res, next) => {
 
     // verify if token exists
-    // const token = req.header('auth-token')
-    const token = req.headers
-    console.log(token)
+    const token = req.cookies.token
     
-    if (!token) return res.status(401).send('Access Denied')
+    if (!token) 
+        return res.status(401).send('Access Denied')
 
     try {
 

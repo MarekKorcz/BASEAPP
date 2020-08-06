@@ -29,8 +29,11 @@ app.use(express.json())
 const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
 
-// // get dynamic routings (like fetched ones)
-// app.use(express.json({ limit: '1mb' }))
+const cookieParser = require('cookie-parser')
+app.use(cookieParser());
+
+// get dynamic routings (like fetched ones)
+app.use(express.json({ limit: '1mb' }))
 
 
 

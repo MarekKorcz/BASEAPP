@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     // verify if token exists
     const token = req.cookies.token
     
-    if (!token) 
+    if (!token)
         return res.status(401).send('Access Denied')
 
     try {

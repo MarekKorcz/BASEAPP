@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log(document.cookie)
+    // console.log(document.cookie)
 
 
     document.querySelector("form#login a[name=submit]").addEventListener('click', (event) => {
@@ -74,10 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((res) => res.json())
             .then((data) => {
 
+                console.log(data)
+
+                
+
                 if (data.status == "success") {
 
-                    // console.log(data.token)
-                    setToken(data.token)
+                    
+
+
+                    
+                    // setToken(data.token)
                     
                     
                     // window.location.replace("http://localhost:5000/servers.html")
@@ -89,9 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         var now = new Date()
         var time = now.getTime()
-        var expireTime = time + 36000
+        var expireTime = time + 10000000
         now.setTime(expireTime)
-
         document.cookie = `token=${token};expires='${now.toGMTString()}';`
     }
 })

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const Log = require('./Log')
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -16,6 +18,10 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    loggs: {
+        type: Schema.Types.ObjectId,
+        ref: 'Log'
     }
 })
 

@@ -41,10 +41,16 @@ router.post('/register', async (req, res) => {
 
 router.get('/login', (req, res) => {
 
+    // check if token exists already
+    tokenCheck(req, res)
+
     res.render('auth/login')
 })
 
 router.post('/login', async (req, res) => {
+
+    // check if token exists already
+    tokenCheck(req, res)
 
     req.body = twistKeyNames(req.body)
 
@@ -86,16 +92,18 @@ router.post('/login', async (req, res) => {
     //     console.log(`deleteManyResult :  ${result}`)
     // })
 
-    let loggs = Log.find({
+    let logInLogs = await Log.find({
         'user': user._id
-    }, function (error, results) {
+    }, async function (error, results) {
 
         // console.log(results)
+
+        let lastLog = null
 
         if (results.length) {
 
             // get last log
-            let lastLog = results.slice(results.length - 1)[0]
+            lastLog = results.slice(results.length - 1)[0]
 
             // console.log(`lastLog :   ${lastLog}`)
 
@@ -131,10 +139,6 @@ router.post('/login', async (req, res) => {
 
                         // console.log('can log in after third try')
 
-                        // create and assign a token
-                        data.token = jwt.sign({ _id: user._id }, TOKEN_SECRET, { expiresIn: '1h' })
-                        data.status = 'success'
-
                         lastLog.attempt = 0
                     }
 
@@ -146,7 +150,7 @@ router.post('/login', async (req, res) => {
 
                     // console.log('Log exceeds given time to log in, need to create new log with a new (fresh) time')
     
-                    createLog(user)
+                    lastLog = createLog(user)
                 }
             }
 
@@ -154,9 +158,25 @@ router.post('/login', async (req, res) => {
 
             // console.log('There is no log, need to create new one (first one)')
 
-            createLog(user)
+            lastLog = createLog(user)
+        }
+
+        return lastLog
+
+    }).exec()
+
+    logInLogs.forEach((log) => {
+
+        if (log && log.attempt == 0) {
+
+            // create and assign a token
+            data.token = jwt.sign({ _id: user._id }, TOKEN_SECRET, { expiresIn: '1h' })
+            data.status = 'success'
+
         }
     })
+
+    // console.log(data)
 
     res.send(data)
 })
@@ -172,7 +192,7 @@ function twistKeyNames(data) {
     return data
 }
 
-function createLog(user) {
+async function createLog(user) {
 
     let log = new Log({
         user: user._id
@@ -182,5 +202,13 @@ function createLog(user) {
 
     // console.log(`Log has been created:  ${log}`)
     
-    return log
+    return await log
+}
+
+function tokenCheck(request, response) {
+
+    if (request.cookies.token) {
+
+        return response.redirect('/server/list')
+    }
 }

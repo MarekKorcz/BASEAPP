@@ -17,3 +17,11 @@
     border: 1px solid red;
     background-color: lightpink;
 }
+
+#login-error {
+
+    padding: 1rem;
+    color: red;
+    letter-spacing: 3px;
+    visibility: hidden;
+}

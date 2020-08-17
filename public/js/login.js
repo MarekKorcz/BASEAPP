@@ -74,20 +74,21 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((res) => res.json())
             .then((data) => {
 
-                console.log(data)
-
-                
+                let loginErrorMessageElement = document.getElementById('login-error')
 
                 if (data.status == "success") {
 
-                    
+                    // console.log(data)
 
+                    loginErrorMessageElement.style.visibility = 'hidden'
+                    
+                    setToken(data.token)
+                    
+                    window.location.replace("http://localhost/server/list")
 
-                    
-                    // setToken(data.token)
-                    
-                    
-                    // window.location.replace("http://localhost:5000/servers.html")
+                } else {
+
+                    loginErrorMessageElement.style.visibility = 'visible'
                 }
             });
     }
@@ -96,7 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         var now = new Date()
         var time = now.getTime()
-        var expireTime = time + 10000000
+        // 3600000 microseconds = 1 hour
+        var expireTime = time + 3600000
         now.setTime(expireTime)
         document.cookie = `token=${token};expires='${now.toGMTString()}';`
     }

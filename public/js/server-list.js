@@ -1,15 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.querySelector("ul button").addEventListener('click', (event) => {
+    let serverList = document.querySelector("ul button")
 
-        let clickedButtonParent = event.target.parentNode
-        let clickedButtonParentClassListLength = clickedButtonParent.classList.length
+    if (serverList) {
+        
+        serverList.addEventListener('click', (event) => {
 
-        // getting last class list element to have a hook on a clicked server element
-        let serverName = clickedButtonParent.classList.item(clickedButtonParentClassListLength - 1)
-
-        getServerResponse(serverName)
-    })
+            let clickedButtonParent = event.target.parentNode
+            let clickedButtonParentClassListLength = clickedButtonParent.classList.length
+    
+            // getting last class list element to have a hook on a clicked server element
+            let serverName = clickedButtonParent.classList.item(clickedButtonParentClassListLength - 1)
+    
+            getServerResponse(serverName)
+        })
+    }
 });
 
 function getServerResponse (serverName) {

@@ -1,0 +1,22 @@
+#create-header {
+    padding-top: 2rem;
+}
+
+.create-section {
+    margin-top: 3rem;
+    padding-bottom: .9rem;
+    height: auto;
+    text-align: center;
+}
+
+#create input[name='host'], 
+#create input[name='user'], 
+#create input[name='port'], 
+#create input[name='password'] {
+    max-width: 60%;
+}
+
+.input-error {
+    border: 1px solid red;
+    background-color: lightpink;
+}

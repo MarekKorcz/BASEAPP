@@ -13,4 +13,26 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.replace("http://localhost/login")
         })
     }
+    
+
+    let createButton = document.querySelector("a#create")
+
+    if (createButton) {
+
+        createButton.addEventListener('click', () => {
+
+            window.location.replace("http://localhost/server/create")
+        })
+    }
+
+
+    let listButton = document.querySelector("a#list")
+
+    if (listButton) {
+
+        listButton.addEventListener('click', () => {
+
+            window.location.replace("http://localhost/server/list")
+        })
+    }
 })

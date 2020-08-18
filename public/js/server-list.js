@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // console.log('yolo')
-
     document.querySelector("ul button").addEventListener('click', (event) => {
 
         let clickedButtonParent = event.target.parentNode

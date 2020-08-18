@@ -9,6 +9,10 @@ const Log = require('../model/Log')
 
 router.post('/register', async (req, res) => {
 
+    // check if token exists already
+    if (req.cookies.token)
+        return res.redirect('/server/list')
+
     // Validate user before submit to DB
     const { error } = registerAndLoginValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -42,15 +46,13 @@ router.post('/register', async (req, res) => {
 router.get('/login', (req, res) => {
 
     // check if token exists already
-    tokenCheck(req, res)
+    if (req.cookies.token)
+        return res.redirect('/server/list')
 
     res.render('auth/login')
 })
 
 router.post('/login', async (req, res) => {
-
-    // check if token exists already
-    tokenCheck(req, res)
 
     req.body = twistKeyNames(req.body)
 
@@ -127,7 +129,7 @@ router.post('/login', async (req, res) => {
                     // console.log('last log has been present in less than 60 seconds')
 
                     // increase attemp counter only when executing second and third log in try
-                    if (lastLog.attempt < 3) {
+                    if (lastLog.attempt < 2) {
 
                         // console.log('log attempt number increased')
 
@@ -135,7 +137,7 @@ router.post('/login', async (req, res) => {
                     }
 
                     // opens only when thrid log try
-                    if (lastLog.attempt == 3) {
+                    if (lastLog.attempt == 2) {
 
                         // console.log('can log in after third try')
 
@@ -203,12 +205,4 @@ async function createLog(user) {
     // console.log(`Log has been created:  ${log}`)
     
     return await log
-}
-
-function tokenCheck(request, response) {
-
-    if (request.cookies.token) {
-
-        return response.redirect('/server/list')
-    }
 }

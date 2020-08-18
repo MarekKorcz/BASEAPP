@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // console.log(document.cookie)
 
-
     document.querySelector("form#login a[name=submit]").addEventListener('click', (event) => {
 
         event.preventDefault
@@ -73,12 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then((res) => res.json())
             .then((data) => {
-
+                
                 let loginErrorMessageElement = document.getElementById('login-error')
 
                 if (data.status == "success") {
-
-                    // console.log(data)
 
                     loginErrorMessageElement.style.visibility = 'hidden'
                     
@@ -89,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
 
                     loginErrorMessageElement.style.visibility = 'visible'
+                    document.querySelector("[name='email']").value = ''
+                    document.querySelector("[name='password']").value = ''
                 }
             });
     }

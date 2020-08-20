@@ -19,7 +19,7 @@ router.get('/create', authorization, (req, res) => {
 router.post('/create', authorization, async (req, res) => {
 
     let data = {
-        status: 'error'
+        status: "error"
     }
 
     let {host, user, port, password} = req.body
@@ -33,10 +33,36 @@ router.post('/create', authorization, async (req, res) => {
             password: password
         })
 
-        data.status = 'success'
+        data.status = "success"
     }
     
     res.send(data)
+})
+
+router.post('/delete', authorization, async (req, res) => {
+
+    const serverId = req.body.serverId
+
+    let data = {
+        serverId: serverId,
+        status: "error",
+        message: ""
+    }
+
+    await Server.deleteOne({
+        _id: serverId
+    }, function(error, result) {
+
+        if (error)
+            data.message = `Error while trying to delete server: ${error}`
+
+        if (result && result.deletedCount) {
+            data.message = result
+            data.status = "success"
+        }
+    })
+
+    return res.send(data)
 })
 
 module.exports = router

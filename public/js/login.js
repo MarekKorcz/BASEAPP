@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 } else {
 
+                    loginErrorMessageElement.style.visibility = 'hidden'
                     loginErrorMessageElement.style.visibility = 'visible'
                     document.querySelector("[name='email']").value = ''
                     document.querySelector("[name='password']").value = ''

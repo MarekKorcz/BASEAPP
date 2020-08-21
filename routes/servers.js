@@ -6,8 +6,13 @@ router.get('/list', authorization, async (req, res) => {
 
     // console.log(await Server.find())
 
+    let now = new Date()
+
     res.render('server/list', {
-        'servers': await Server.find()
+        'servers': await Server.find(),
+        'year': now.getFullYear(),
+        'month': now.getMonth().toString().length == 1 ? `0${now.getMonth() + 1}` : now.getMonth() + 1,
+        'day': now.getDate().toString().length == 1 ? `0${now.getDate()}` : now.getDate()
     })
 })
 

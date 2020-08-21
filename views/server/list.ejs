@@ -54,6 +54,13 @@
                                     <a class="delete btn btn-danger" style="color: white;" data-id="<%= server._id %>">Delete</a>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <form>
+                                        <input type="date" name="date" value="<%= `${year}-${month}-${day}` %>" data-id="<%= server._id %>">
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="server-button text-center">

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let deleteButtons = document.getElementsByClassName("delete")
 
-    if (deleteButtons) {
+    if (deleteButtons.length) {
 
         for (let btn of deleteButtons) {
 
@@ -30,6 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     deleteServer(serverId)
                 }
+            })
+        }
+    }
+
+    let dateButtons = document.querySelectorAll(`input[name='date']`)
+
+    if (dateButtons.length) {
+
+        for (let dateBtn of dateButtons) {
+
+            dateBtn.addEventListener('change', (event) => {
+
+                let chosenDate = event.target.value
+                let serverId = event.target.getAttribute('data-id')
+
+                console.log({chosenDate})
+                console.log({serverId})
             })
         }
     }

@@ -68,11 +68,12 @@ router.post('/login', async (req, res) => {
         return res.status(400).send(data)
     }
 
-    // check if user exists
-    const user = await User.
-        findOne({ name: req.body.name })
+    // get user
+    const user = await User
+        .findOne({ name: req.body.name })
         .populate('loggs')
 
+    // check if user exists
     if (!user) {
 
         data.message = 'User is not found'
@@ -133,7 +134,7 @@ router.post('/login', async (req, res) => {
 
                         // console.log('log attempt number increased')
 
-                        lastLog.attempt = lastLog.attempt + 1
+                        lastLog.attempt += 1
                     }
 
                     // opens only when thrid log try

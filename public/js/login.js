@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // console.log(document.cookie)
+    // document.addEventListener('mousemove', (event) => {
+    //     console.log(`x: ${event.clientX}   y: ${event.clientY}`)
+    // })
 
     document.querySelector("form#login a[name=submit]").addEventListener('click', (event) => {
 
